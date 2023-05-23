@@ -1,11 +1,10 @@
-/*#include <stdio.h>
+#include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
 #include <vector>
 #include <algorithm>
-#include <stdexcept>*/
-#include <bits/stdc++.h>
+#include <stdexcept>
 
 #define UGN 25
 #define GMA 3125
