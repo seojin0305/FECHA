@@ -1,3 +1,10 @@
+/*#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#include <time.h>
+#include <vector>
+#include <algorithm>
+#include <stdexcept>*/
 #include <bits/stdc++.h>
 
 #define UGN 25
@@ -7,8 +14,6 @@
 #define TAU 3130
 
 using namespace std;
-
-random_device rd;
 
 enum Operator {
     AND,
@@ -28,16 +33,16 @@ public:
         int maxIdx = 0;
         int tmp;
         
-        mt19937 gen(rd());
+        srand((int)time(NULL));
         
-        sk = (gen() * 2 + 1) % ((int) pow(2, UGN));
+        sk = (rand() * 2 + 1) % ((int) pow(2, UGN));
         
         int qMax = (int) pow(2, GMA) / sk - 1, rMax = (int) pow(2, RHO_1);
         
         do {
             for (int i = 0; i <= TAU; i++) {
-                r[i] = gen() % (2 * rMax - 2) - (rMax - 1);
-                pk[i] = sk * (gen() % qMax) + r[i];
+                r[i] = rand() % (2 * rMax - 2) - (rMax - 1);
+                pk[i] = sk * (rand() % qMax) + r[i];
             }
             
             for (int i = 0; i <= TAU; i++) {
@@ -54,15 +59,14 @@ public:
 
     int encrypt(int m) {
         vector<int> S;
-        mt19937 gen(rd());
-        uniform_int_distribution<int> dist(-1 * (int)pow(2, RHO_2), (int)pow(2, RHO_2));
+        srand((int)time(NULL));
         
         for (int i = 1; i <= TAU; i++) {
-            auto tmp = gen() % 200;
+            auto tmp = rand() % 200;
             if (tmp == 0) S.push_back(i);
         }
         
-        auto gmaP = dist(gen);
+        auto gmaP = (rand() % ((int)pow(2, RHO_2) + 1)) - (int)pow(2, RHO_2);
         long long c = (long long)m + (long long)gmaP * 2;
         
         for (int i = 0; i < S.size(); i++) {c += 2 * pk[S[i]]; c % pk[0];}
